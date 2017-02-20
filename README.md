@@ -9,10 +9,11 @@ By default, service will run on port **9000**. Example: **http://127.0.0.1:9000/
 
 * Show number of saved documents: **/documents**
   * Example: ```curl -v -X GET http://127.0.0.1:9000/documents```
-* Index new document: **/document**
-  * ``` curl -H "Content-Type: application/json" -X POST -d "the third document text" http://127.0.0.1:9000/document/3```
-* Get document by ID: **/document/<id>**
+* Index new document: POST **/document**
+  * ``` curl -H "Content-Type: application/json" -X POST -d "the third document text" http://127.0.0.1:9000/document/1```
+* Get document by ID: GET **/document/<id>**
   * ```curl -v -X GET http://127.0.0.1:9000/document/1```
 * Search word over all saved documents: **/document?q=<word>**
   * ```curl -v -X GET http://127.0.0.1:8080/document?q=sample```
-
+* Delete document by ID: **/document/<id>**
+  * ```curl -v -X DELETE http://127.0.0.1:9000/document/1```
