@@ -21,8 +21,7 @@ def documents_get():
 @app.route("/document/<int:index>", methods=["POST"])
 def documents_post(index):
     rds = RedisHelper(redis_host, redis_port)
-    rds.append_text(index, request.data)
-    return json.dumps({"documentIndex": index})
+    return json.dumps({"documentIndex": rds.append_text(index, request.data)})
 
 
 @app.route("/document/<int:index>", methods=["GET"])
@@ -33,7 +32,8 @@ def documents_get_by_index(index):
 
 @app.route("/document/<int:index>", methods=["DELETE"])
 def documents_delete(index):
-    return json.dumps({"documentsDeleted": index})
+    rds = RedisHelper(redis_host, redis_port)
+    return json.dumps({"documentsDeleted": rds.remove_text(index)})
 
 
 @app.route("/document", methods=["GET"])
