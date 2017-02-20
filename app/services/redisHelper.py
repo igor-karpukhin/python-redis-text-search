@@ -1,4 +1,5 @@
 import redis
+from uuid import uuid4
 
 class RedisHelper(object):
 
@@ -26,11 +27,9 @@ class RedisHelper(object):
         return self.connection.get("text:{0}".format(index))
 
     def lookup_word(self, word):
-        print "WORD", word
-        r = self.connection.zunionstore("search:results",
-                                        ["word:{0}".format(word)])
-        print "ZSTR", r
-        results = self.connection.zrevrange("search:results",
+        uid = uuid4().hex
+        self.connection.zunionstore("search:word:{0}".format(uid),
+                                    ["word:{0}".format(word)])
+        results = self.connection.zrevrange("search:word:{0}".format(uid),
                                             0, -1, True, int)
-        print "RSLT", results
         return results
