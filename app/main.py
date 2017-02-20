@@ -3,6 +3,8 @@ from flask import Flask, request
 import json
 import optparse
 from services.redisHelper import RedisHelper
+import os
+
 
 app = Flask(__name__)
 
@@ -52,11 +54,14 @@ if __name__ == "__main__":
     opt_parser.add_option("--addr", action="store", dest="addr",
                           default="0.0.0.0", help="IP address to listen")
     opt_parser.add_option("--port", action="store", dest="port",
-                          default=8080, help="port to listen")
+                          default=os.environ["APPCONF_appPort"],
+                          help="port to listen")
     opt_parser.add_option("--rhost", action="store", dest="rhost",
-                          default="127.0.0.1", help="Redis host")
+                          default=os.environ["APPCONF_redisHost"],
+                          help="Redis host")
     opt_parser.add_option("--rport", action="store", dest="rport",
-                          default=7760, help="Redis port")
+                          default=os.environ["APPCONF_redisPort"],
+                          help="Redis port")
     args, vals = opt_parser.parse_args()
 
     redis_host = args.rhost

@@ -28,8 +28,9 @@ class RedisHelper(object):
 
     def lookup_word(self, word):
         uid = uuid4().hex
-        self.connection.zunionstore("search:word:{0}".format(uid),
-                                    ["word:{0}".format(word)])
-        results = self.connection.zrevrange("search:word:{0}".format(uid),
-                                            0, -1, True, int)
+        lookup_key = "search:{0}:{1}".format(word, uid)
+        self.connection.zunionstore(lookup_key, ["word:{0}".format(word)])
+        results = self.connection.zrevrange(lookup_key, 0, -1, False, int)
+        self.connection.delete(lookup_key)
         return results
+
