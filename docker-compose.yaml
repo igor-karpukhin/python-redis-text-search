@@ -7,18 +7,20 @@ services:
         restart: always
         environment:
             - PYTHONPATH=/usr/local/lib/python2.7/site-packages/:/usr/local/lib/python2.7/:/home/igor/app/
-            - APPCONF_appPort=80
+            - APPCONF_appPort=8080
             - APPCONF_redisHost=redis
-            - APPCONF_redisPort=7760
+            - APPCONF_redisPort=6379
         depends_on:
             - redis
         ports:
-            - 9000:80
+            - 9000:8080
 
     redis:
         container_name: redis
         image: "redis:latest"
         restart: always
+        volumes:
+            - /tmp/redis-data
         ports:
             - 7760:6379
 
