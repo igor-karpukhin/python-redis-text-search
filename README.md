@@ -14,6 +14,6 @@ By default, service will run on port **9000**. Example: **http://127.0.0.1:9000/
 * Get document by ID: GET **/document/id**
   * ```curl -v -X GET http://127.0.0.1:9000/document/1```
 * Search word over all saved documents: **/document?q=word**
-  * ```curl -v -X GET http://127.0.0.1:8080/document?q=sample```
+  * ```curl -v -X GET http://127.0.0.1:9000/document?q=sample```
 * Delete document by ID: **/document/id**
   * ```curl -v -X DELETE http://127.0.0.1:9000/document/1```
